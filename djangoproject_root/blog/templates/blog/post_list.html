@@ -1,29 +1,13 @@
-<html>
-    <head>
-        <title>Mein Blog</title>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    </head>
-    <body>
-        <div>
-            <h1><a href="/">Meine erste HTML-Seite!</a></h1>
-        </div>
-        <div>
-            <p>erstellt: 11.09.2018, 11:02</p>
-            <h2><a href="">der erste Eintrag</a></h2>
-            <p>Es funktioniert!</p>
-        </div>
-        <div>
-            <p>erstellt: 11.09.2018, 12:02</p>
-            <h2><a href="">der zweite Eintrag</a></h2>
-            <p>Es funktioniert immer noch</p>
-        </div>
-        {% for post in posts %}
-            <div>
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    {% for post in posts %}
+        <div class="post">
+            <div class="date">
                 <p>published: {{ post.published_date }}</p>
-                <h1><a href="">{{ post.title }}</a></h1>
-                <p>{{ post.text|linebreaksbr }}</p>
             </div>
-        {% endfor %}
-    </body>
-</html>
+            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+            <p>{{ post.text|linebreaksbr }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
